@@ -11,9 +11,16 @@ public class CubeController : MonoBehaviour
     // 消滅位置
     private float deadLine = -10;
 
+    public AudioSource sound1;
+
+    private GameObject unitychan;
+
     // Use this for initialization
     void Start()
     {
+        this.unitychan = GameObject.Find("UnityChan2D");
+
+        sound1 = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -28,13 +35,14 @@ public class CubeController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-
-        //障害物に衝突した場合（追加）
-        if (other.gameObject.tag == "cubetag" || other.gameObject.tag == "groundtag")
+        if (other.gameObject.tag == "cubetag")
         {
-            GetComponent<AudioSource>().Play();
+
+            sound1.PlayOneShot(sound1.clip);
+
+
         }
     }
 }
